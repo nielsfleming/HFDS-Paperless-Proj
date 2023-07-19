@@ -1,8 +1,0 @@
-.tool-parent .tooltip {
-  background-color: white;
-  color: #3B414E;
-  border-radius: 6px;
-  filter: drop-shadow(0 1px 5px #47548440);
-  z-index: 20;
-  opacity: 1;
-}
