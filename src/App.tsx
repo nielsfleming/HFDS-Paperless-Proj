@@ -1,12 +1,14 @@
 import "./App.css";
-import { Button } from "fecomponents";
 import Table from "./components/Table";
+import HeaderBanner from "./components/headerBanner";
+import GetDateTime from "./components/getDateTime";
 
 export default function App() {
   return (
     <div>
-      <Button>Mindy</Button>
+      <HeaderBanner titleText={"Header"} />
       <Table />
+      <GetDateTime />
     </div>
   );
 }
