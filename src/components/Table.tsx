@@ -1,4 +1,7 @@
-import { Button, SearchBar } from "fecomponents";
+import { Button, SearchBar, Dropdown } from "fecomponents";
+import React from "react";
+
+
 
 export interface TableProps {
   data: {
@@ -8,22 +11,45 @@ export interface TableProps {
     quantity: number;
   };
 }
+
 export default function Table({ }: TableProps) {
+
+  var ReactNode = React.createElement(
+    'ul', {
+        className: 'myList'
+    },
+        React.createElement('li', {id: 'li1'},'one'),
+        React.createElement('li', {id: 'li2'},'two'),
+        React.createElement('li', {id: 'li3'},'three')
+  );
+
+
   return (
-    <div className="mx-14 mt-5 shadow-md border-2">
-      <SearchBar
-        placeholder="Search for part number"
-        className="w-1/3 sm p-5"
-      />
+
+    <div className="mx-10 mt-5 border-2">
+
+      <div className="flex items-center justify-between flex-row ">
+        <SearchBar
+          placeholder="Search for part number"
+          className="'w-[280px] m-5 border-b-2"
+        />
+        <Dropdown 
+            label = 'Filter'
+            className = 'w-[280px] m-5'
+            children = {ReactNode}
+              
+            />
+            
+      </div>
  
-        <table className="w-full ">
+        <table className="w-full">
           <thead>
             <tr className="text-left border-b border-neutral-10">
               <th className="py-4">Part Number</th>
               <th>Warehouse</th>
               <th>Number of Bins</th>
               <th>Quantity</th>
-              <th></th>
+              <th>Requests</th>
             </tr>
           </thead>
           <tbody>
@@ -46,7 +72,9 @@ export default function Table({ }: TableProps) {
               </td>
             </tr>
           </tbody>
+
         </table>
+
     </div>
   );
 }
