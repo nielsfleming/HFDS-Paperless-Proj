@@ -1,14 +1,18 @@
 import { Button, SearchBar, Dropdown } from "fecomponents";
 import React from "react";
 
-export interface TableProps {
+interface TableItem {
   partNumber: number;
   warehouse: string;
   bins: number;
   quantity: number;
+  fifoLocation: string;
+}
+export interface TableProps {
+  item: TableItem[];
 }
 
-export default function Table({}: TableProps) {
+export default function Table(props: TableProps) {
   var ReactNode = React.createElement(
     "ul",
     {
@@ -53,15 +57,17 @@ export default function Table({}: TableProps) {
               <Button>Request a thang</Button>
             </td>
           </tr>
-          <tr className="even:bg-neutral-10">
-            <td>123</td>
-            <td>Niels</td>
-            <td>123</td>
-            <td>123</td>
-            <td>
-              <Button>Request a thang</Button>
-            </td>
-          </tr>
+          {props.item.map((row) => (
+            <tr className="even:bg-neutral-10">
+              <td>{row.partNumber}</td>
+              <td>{row.warehouse}</td>
+              <td>{row.bins}</td>
+              <td>{row.quantity}</td>
+              <td>
+                <Button>Request a thang</Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
