@@ -1,13 +1,14 @@
-import { Modal, Button } from "fecomponents";
-import { useState } from "react";
+import { Modal, Button } from 'fecomponents';
+import { useState } from 'react';
 
 export default function JobAccept() {
-    
-  return (
-    <div>
-      <Modal>
-        <Button type="success">Accept</Button>
-      </Modal>
-    </div>
-  );
+    const [open, setOpen] = useState(true);
+    return (
+        <div>
+            <Modal isOpen={open} onClose={() => setOpen(false)}>
+                <Button type='success'>Accept</Button>
+                <Button type='danger'>Decline</Button>
+            </Modal>
+        </div>
+    );
 }
