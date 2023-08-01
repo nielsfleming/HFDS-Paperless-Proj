@@ -58,7 +58,7 @@ export default function Table(props: TableProps) {
             </td>
           </tr>
           {props.item.map((row) => (
-            <tr className="even:bg-neutral-10">
+            <tr key={row.partNumber} className="even:bg-neutral-10">
               <td>{row.partNumber}</td>
               <td>{row.warehouse}</td>
               <td>{row.bins}</td>

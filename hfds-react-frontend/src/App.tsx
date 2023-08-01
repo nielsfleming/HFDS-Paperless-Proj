@@ -1,8 +1,21 @@
 import "./App.css";
 import Table, { TableProps } from "./components/Table";
 import HeaderBanner from "./components/headerBanner";
+import { useState, useEffect } from "react";
 
 export default function App() {
+  const [data, setData] = useState([{}]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/members")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        console.log("in data print");
+        console.log(data);
+      });
+  }, []);
+
   const props: TableProps = {
     item: [
       {
