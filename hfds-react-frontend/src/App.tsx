@@ -1,7 +1,9 @@
 import './App.css';
 import Table, { TableProps } from './components/Table';
-import HeaderBanner from './components/headerBanner';
+import JobAccept from './components/JobAccept';
+import { Navbar } from 'fecomponents';
 import { useState, useEffect } from 'react';
+import logo from './img/martinreaLogo.png';
 
 export default function App() {
     const [data, setData] = useState([{}]);
@@ -20,14 +22,14 @@ export default function App() {
         item: [
             {
                 partNumber: 123456,
-                warehouse: 'warehouse#1',
+                warehouse: 'Warehouse 1',
                 bins: 12,
                 quantity: 600,
                 fifoLocation: 'G245'
             },
             {
                 partNumber: 654321,
-                warehouse: 'warehouse#2',
+                warehouse: 'Warehouse 2',
                 bins: 8,
                 quantity: 400,
                 fifoLocation: 'G420'
@@ -37,8 +39,9 @@ export default function App() {
 
     return (
         <div>
-            <HeaderBanner titleText={'SuperMarket FIFO Report'} />
+            <Navbar icon={<img src={logo} width={50} height={50}/>} pageTitle='Supermarket FIFO Report' variant='display' />
             <Table {...props} />
+            <JobAccept />
         </div>
     );
 }

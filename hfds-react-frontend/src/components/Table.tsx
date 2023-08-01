@@ -1,5 +1,6 @@
-import { Button, SearchBar, Dropdown } from 'fecomponents';
+import { Button, SearchBar, Select, MenuItem, Pagination } from 'fecomponents';
 import React from 'react';
+import { useState } from 'react';
 
 interface TableItem {
     partNumber: number;
@@ -13,59 +14,45 @@ export interface TableProps {
 }
 
 export default function Table(props: TableProps) {
-    var ReactNode = React.createElement(
-        'ul',
-        {
-            className: 'myList'
-        },
-        React.createElement('li', { id: 'li1' }, 'one'),
-        React.createElement('li', { id: 'li2' }, 'two'),
-        React.createElement('li', { id: 'li3' }, 'three')
-    );
-
+    const [scrub, setScrub] = useState(3);
+    const [value, setValue] = useState('Warehouse 1');
     return (
-        <div className='mx-10 mt-5 border-2'>
-            <div className='flex items-center justify-between flex-row '>
+        <div className='shadow-full-lg rounded-md mx-14'>
+            <div className='flex items-center justify-between flex-row'>
                 <SearchBar
+                    size='sm'
                     placeholder='Search for part number'
-                    className="'w-[280px] m-5 border-b-2"
+                    className='w-1/3 m-5 border-b-2'
                 />
-                <Dropdown label='Filter' className='w-[280px] m-5' children={ReactNode} />
+                <Select selectedValue={value} onSelect={v => setValue(v as string)} placeholder='Filter' className='w-[280px] m-5'>
+                    <MenuItem>Warehouse #1</MenuItem>
+                </Select>
             </div>
-
             <table className='w-full'>
                 <thead>
                     <tr className='text-left border-b border-neutral-10'>
-                        <th className='py-4'>Part Number</th>
+                        <th className='pl-5 [&]:py-3'>Part Number</th>
                         <th>Warehouse</th>
                         <th>Number of Bins</th>
                         <th>Quantity</th>
-                        <th>Requests</th>
+                        <th className='pr-5'>Requests</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className='even:bg-neutral-10'>
-                        <td>123</td>
-                        <td>Niels</td>
-                        <td>123</td>
-                        <td>123</td>
-                        <td>
-                            <Button>Request a thang</Button>
-                        </td>
-                    </tr>
                     {props.item.map(row => (
-                        <tr key={row.partNumber} className='even:bg-neutral-10'>
-                            <td>{row.partNumber}</td>
-                            <td>{row.warehouse}</td>
-                            <td>{row.bins}</td>
-                            <td>{row.quantity}</td>
-                            <td>
+                        <tr key={row.partNumber} className='even:bg-neutral-10 p-5'>
+                            <td className='pl-5 [&]:py-4 w-fit'>{row.partNumber}</td>
+                            <td className=''>{row.warehouse}</td>
+                            <td className=''>{row.bins}</td>
+                            <td className=''>{row.quantity}</td>
+                            <td className='text-end pr-5'>
                                 <Button>Request a thang</Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <Pagination page={scrub} onPageChange={setScrub} max={5} count={3} />
         </div>
     );
 }
