@@ -1,5 +1,4 @@
 import { Button, SearchBar, Select, MenuItem, Pagination } from 'fecomponents';
-import React from 'react';
 import { useState } from 'react';
 
 interface TableItem {
@@ -11,11 +10,14 @@ interface TableItem {
 }
 export interface TableProps {
     item: TableItem[];
+    setScrub: React.Dispatch<React.SetStateAction<{ label: string; description: string }>>;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Table(props: TableProps) {
-    const [scrub, setScrub] = useState(3);
     const [value, setValue] = useState('Warehouse 1');
+    const [diep, setDiep] = useState(1);
+
     return (
         <div className='shadow-full-lg rounded-md mx-14'>
             <div className='flex items-center justify-between flex-row'>
@@ -24,7 +26,11 @@ export default function Table(props: TableProps) {
                     placeholder='Search for part number'
                     className='w-1/3 m-5 border-b-2'
                 />
-                <Select selectedValue={value} onSelect={v => setValue(v as string)} placeholder='Filter' className='w-[280px] m-5'>
+                <Select
+                    selectedValue={value}
+                    onSelect={v => setValue(v as string)}
+                    placeholder='Filter'
+                    className='w-[280px] m-5'>
                     <MenuItem>Warehouse #1</MenuItem>
                 </Select>
             </div>
@@ -46,13 +52,24 @@ export default function Table(props: TableProps) {
                             <td className=''>{row.bins}</td>
                             <td className=''>{row.quantity}</td>
                             <td className='text-end pr-5'>
-                                <Button>Request a thang</Button>
+                                <Button
+                                    onClick={() => {
+                                        props.setScrub({
+                                            label: 'Part Location',
+                                            description: `Part #${row.partNumber} is in ${row.warehouse} in spot: ${row.fifoLocation}`
+                                        });
+                                        props.setOpen(true);
+                                    }}>
+                                    Locate part
+                                </Button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <Pagination page={scrub} onPageChange={setScrub} max={5} count={3} />
+            <div className='py-3'>
+                <Pagination page={diep} onPageChange={setDiep} max={5} count={3} />
+            </div>
         </div>
     );
 }
