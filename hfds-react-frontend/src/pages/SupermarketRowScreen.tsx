@@ -7,22 +7,24 @@ import type { Job } from '../App';
 
 export default function ForkliftScreen({ jobQueue }: { jobQueue: Job[] }) {
     const [data, setData] = useState([{}]);
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [scrub, setScrub] = useState({ label: 'scrub', description: 'scrub-a-dub-dub' });
 
-    useEffect(() => {
-        fetch('http://localhost:5000/members')
-            .then(res => res.json())
-            .then(data => {
-                setData(data);
-                console.log('in data print');
-                console.log(data);
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/members')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setData(data);
+    //             console.log('in data print');
+    //             console.log(data);
+    //         });
+    // }, []);
 
     const handleModalOpen = () => {
         setOpen(true);
     };
+
+    console.log(jobQueue);
 
     // data will be pased in as table properties, received via http request
     const props: TableProps &
